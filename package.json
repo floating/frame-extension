@@ -1,11 +1,11 @@
 {
   "name": "frame-extension",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "source",
+  "main": "src",
   "scripts": {
     "test": "standard",
-    "build": "rimraf ./build && parcel build ./src/frame.js -d ./build --no-source-maps && node ./src/inline.js"
+    "build": "rimraf ./dist && parcel build ./src/frame.js --no-source-maps --target browser && node ./src/inline.js"
   },
   "author": "Jordan Muir",
   "license": "GPL-3.0",
@@ -16,7 +16,6 @@
     "standard": "^11.0.1"
   },
   "dependencies": {
-    "eth-provider": "github:floating/eth-provider",
-    "web3": "^1.0.0-beta.34"
+    "eth-provider": "0.0.6"
   }
 }
