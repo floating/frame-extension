@@ -16,6 +16,7 @@
     "standard": "^11.0.1"
   },
   "dependencies": {
-    "eth-provider": "0.0.7"
+    "eth-provider": "0.0.7",
+    "web3": "^0.20.7"
   }
 }
