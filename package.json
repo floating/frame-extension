@@ -1,22 +1,23 @@
 {
   "name": "frame-extension",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "src",
   "scripts": {
     "test": "standard",
-    "build": "rimraf ./dist && parcel build ./src/frame.js --no-source-maps --target browser && node ./src/inline.js"
+    "build": "rimraf ./dist && webpack --config webpack.config.js && node ./src/inline.js"
   },
   "author": "Jordan Muir",
   "license": "GPL-3.0",
   "devDependencies": {
     "ncp": "^2.0.0",
-    "parcel-bundler": "^1.8.1",
     "rimraf": "^2.6.2",
-    "standard": "^11.0.1"
+    "standard": "^11.0.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
   },
   "dependencies": {
-    "eth-provider": "0.0.7",
+    "eth-provider": "0.0.8",
     "web3": "^0.20.7"
   }
 }
