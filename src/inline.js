@@ -3,22 +3,25 @@ const path = require('path')
 const ncp = require('ncp')
 
 let inject = `
-  var active = JSON.parse(localStorage.getItem('__frameActive'))
-  chrome.runtime.sendMessage({method: 'setActive', active: active})
   var frame = unescape('${escape(fs.readFileSync(path.join(__dirname, '../dist/frame.js')).toString())}')
-  if (active) {
-    try {
-      let script = document.createElement('script')
-      script.setAttribute('type', 'text/javascript')
-      script.innerText = frame
-      script.onload = function () { this.remove() }
-      document.head ? document.head.prepend(script) : document.documentElement.prepend(script)
-    } catch (e) {
-      console.log(e)
-    }
+  try {
+    window.addEventListener('message', function(event) {
+      if (event.source === window && event.data && event.data.type === 'ethereum:send') {
+        chrome.runtime.sendMessage(event.data.payload, function (response) {
+          window.postMessage({type: 'ethereum:response', payload: response}, window.location.origin)
+        })
+      }
+    })
+    let script = document.createElement('script')
+    script.setAttribute('type', 'text/javascript')
+    script.innerText = frame
+    script.onload = function () { this.remove() }
+    document.head ? document.head.prepend(script) : document.documentElement.prepend(script)
+  } catch (e) {
+    console.log(e)
   }
 `
 fs.writeFile(path.join(__dirname, '../dist/inject.js'), inject, err => { if (err) throw err })
 let copy = files => files.forEach(file => fs.createReadStream(path.join(__dirname, file)).pipe(fs.createWriteStream(path.join(__dirname, '../dist/', file))))
-copy(['./toggle.js', './manifest.json', './index.js'])
+copy(['./manifest.json'])
 ncp(path.join(__dirname, './icons'), path.join(__dirname, '../dist/icons'))
