@@ -7,9 +7,13 @@ try {
       super()
       this.handlers = {}
       window.addEventListener('message', event => {
-        if (event.source === window && event.data && event.data.type === 'ethereum:response') {
-          let payload = event.data.payload
-          if (this.handlers[payload.id]) this.handlers[payload.id](payload.error ? payload.error : null, payload)
+        if (event.source === window && event.data) {
+          if (event.data.type === 'ethereum:response') {
+            let payload = event.data.payload
+            if (this.handlers[payload.id]) this.handlers[payload.id](payload.error ? payload.error : null, payload)
+          } else if (event.data.type === 'ethereum:subscription') {
+            this.emit('data', event.data.payload)
+          }
         }
       })
     }
