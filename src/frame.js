@@ -1,4 +1,5 @@
 const EventEmitter = require('events')
+const Web3 = require('web3')
 
 try {
   class EthereumProvider extends EventEmitter {
@@ -8,7 +9,7 @@ try {
       window.addEventListener('message', event => {
         if (event.source === window && event.data && event.data.type === 'ethereum:response') {
           let payload = event.data.payload
-          if (this.handlers[payload.id]) this.handlers[payload.id](payload.error ? new Error(payload.error) : null, payload)
+          if (this.handlers[payload.id]) this.handlers[payload.id](payload.error ? payload.error : null, payload)
         }
       })
     }
@@ -21,6 +22,7 @@ try {
     }
   }
   window.ethereum = new EthereumProvider()
+  window.web3 = new Web3(window.ethereum)
 } catch (e) {
   console.error('Frame Error:', e)
 }
