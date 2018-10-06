@@ -1,18 +1,14 @@
 /* globals chrome */
 
-chrome.browserAction.onClicked.addListener(tab => {
-  chrome.tabs.executeScript(tab.ib, {file: 'toggle.js'})
-  chrome.tabs.reload(tab.ib)
-})
+const provider = require('eth-provider')('ws://127.0.0.1:1248')
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.method === 'setActive') {
-    if (request.active) {
-      chrome.browserAction.setBadgeBackgroundColor({color: '#47caab'})
-      chrome.browserAction.setBadgeText({text: 'ON', tabId: sender.tab.id})
-    } else {
-      chrome.browserAction.setBadgeText({text: '', tabId: sender.tab.id})
-    }
-  }
+const getOrigin = url => {
+  let path = url.split('/')
+  return path[0] + '//' + path[2]
+}
+
+chrome.runtime.onMessage.addListener((payload, sender, sendResponse) => {
+  payload.__frameOrigin = getOrigin(sender.url)
+  provider.sendAsync(payload, (err, res) => { if (!err) sendResponse(res) })
   return true
 })
