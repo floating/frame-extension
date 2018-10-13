@@ -1,6 +1,6 @@
 /* globals chrome */
 
-const provider = require('eth-provider')('ws://127.0.0.1:1248')
+const provider = require('eth-provider')('ws://127.0.0.1:1248?identity=frame-extension')
 
 const subs = {}
 
