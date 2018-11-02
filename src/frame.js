@@ -1,33 +1,26 @@
 const EventEmitter = require('events')
 const Web3 = require('web3')
+const EthereumProvider = require('ethereum-provider')
+
+class Connection extends EventEmitter {
+  constructor () {
+    super()
+    window.addEventListener('message', event => {
+      if (event && event.source === window && event.data && event.data.type === 'eth:payload') {
+        this.emit('payload', event.data.payload)
+      }
+    })
+    setTimeout(() => this.emit('connect'), 0)
+  }
+  send (payload) {
+    window.postMessage({ type: 'eth:send', payload }, window.location.origin)
+  }
+}
 
 try {
-  class EthereumProvider extends EventEmitter {
-    constructor () {
-      super()
-      this.handlers = {}
-      window.addEventListener('message', event => {
-        if (event.source === window && event.data) {
-          if (event.data.type === 'ethereum:response') {
-            let payload = event.data.payload
-            if (this.handlers[payload.id]) this.handlers[payload.id](payload.error ? payload.error : null, payload)
-          } else if (event.data.type === 'ethereum:subscription') {
-            this.emit('data', event.data.payload)
-          }
-        }
-      })
-    }
-    enable () {
-      return new Promise()
-    }
-    sendAsync (payload, cb) {
-      this.handlers[payload.id] = cb
-      window.postMessage({type: 'ethereum:send', payload}, window.location.origin)
-    }
-  }
-  window.ethereum = new EthereumProvider()
+  window.ethereum = new EthereumProvider(new Connection())
   window.ethereum.setMaxListeners(128)
-  window.web3 = new Web3(window.ethereum)
+  window.web3 = new Web3(new EthereumProvider(new Connection())) // Web3 will clobber send so we need another provider
 } catch (e) {
   console.error('Frame Error:', e)
 }
