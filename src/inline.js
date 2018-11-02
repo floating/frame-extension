@@ -5,15 +5,9 @@ const ncp = require('ncp')
 let inject = `
   var frame = unescape('${escape(fs.readFileSync(path.join(__dirname, '../dist/frame.js')).toString())}')
   try {
-    chrome.runtime.onMessage.addListener((payload, sender, sendResponse) => {
-      window.postMessage({type: 'ethereum:subscription', payload: payload}, window.location.origin)
-    })
-    window.addEventListener('message', function(event) {
-      if (event.source === window && event.data && event.data.type === 'ethereum:send') {
-        chrome.runtime.sendMessage(event.data.payload, function (response) {
-          window.postMessage({type: 'ethereum:response', payload: response}, window.location.origin)
-        })
-      }
+    chrome.runtime.onMessage.addListener((payload, sender, sendResponse) => window.postMessage({type: 'eth:payload', payload: payload}, window.location.origin))
+    window.addEventListener('message', event => {
+      if (event.source === window && event.data && event.data.type === 'eth:send') chrome.runtime.sendMessage(event.data.payload)
     })
     let script = document.createElement('script')
     script.setAttribute('type', 'text/javascript')
