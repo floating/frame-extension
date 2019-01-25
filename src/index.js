@@ -17,7 +17,8 @@ provider.connection.on('payload', payload => {
       if (pending[payload.id].method === 'eth_subscribe' && payload.result) {
         subs[payload.result] = { tabId, send: subload => chrome.tabs.sendMessage(tabId, subload) }
       } else if (pending[payload.id].method === 'eth_unsubscribe') {
-        payload.params.forEach(sub => delete subs[sub])
+        let params = payload.params ? [].concat(payload.params) : []
+        params.forEach(sub => delete subs[sub])
       }
       chrome.tabs.sendMessage(tabId, Object.assign({}, payload, { id: payloadId }))
       delete pending[payload.id]
