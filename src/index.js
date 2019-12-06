@@ -6,18 +6,18 @@ const subs = {}
 const pending = {}
 
 const getOrigin = url => {
-  let path = url.split('/')
+  const path = url.split('/')
   return path[0] + '//' + path[2]
 }
 
 provider.connection.on('payload', payload => {
   if (typeof payload.id !== 'undefined') {
     if (pending[payload.id]) {
-      let { tabId, payloadId } = pending[payload.id]
+      const { tabId, payloadId } = pending[payload.id]
       if (pending[payload.id].method === 'eth_subscribe' && payload.result) {
         subs[payload.result] = { tabId, send: subload => chrome.tabs.sendMessage(tabId, subload) }
       } else if (pending[payload.id].method === 'eth_unsubscribe') {
-        let params = payload.params ? [].concat(payload.params) : []
+        const params = payload.params ? [].concat(payload.params) : []
         params.forEach(sub => delete subs[sub])
       }
       chrome.tabs.sendMessage(tabId, Object.assign({}, payload, { id: payloadId }))
@@ -29,9 +29,9 @@ provider.connection.on('payload', payload => {
 })
 
 chrome.runtime.onMessage.addListener((payload, sender, sendResponse) => {
-  let id = provider.nextId++
+  const id = provider.nextId++
   pending[id] = { tabId: sender.tab.id, payloadId: payload.id, method: payload.method }
-  let load = Object.assign({}, payload, { id, __frameOrigin: getOrigin(sender.url) })
+  const load = Object.assign({}, payload, { id, __frameOrigin: getOrigin(sender.url) })
   provider.connection.send(load)
 })
 

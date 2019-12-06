@@ -12,6 +12,7 @@ class Connection extends EventEmitter {
     })
     setTimeout(() => this.emit('connect'), 0)
   }
+
   send (payload) {
     if (payload && payload.method && payload.method === 'eth_requestAccounts') {
       this.emit('payload', { id: payload.id, jsonrpc: payload.jsonrpc, error: 'No eth_requestAccounts' })
