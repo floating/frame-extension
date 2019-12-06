@@ -1,6 +1,10 @@
 {
   "name": "frame-extension",
   "version": "0.2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/floating/frame-extension.git"
+  },
   "description": "Frame Companion Extension",
   "main": "src",
   "scripts": {

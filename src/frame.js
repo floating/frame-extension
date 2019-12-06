@@ -28,6 +28,7 @@ try {
   window.ethereum = new FrameProvider(new Connection())
   window.ethereum.isFrame = true
   window.ethereum.setMaxListeners(128)
+  window.Web3 = Web3
   window.web3 = new Web3(new FrameProvider(new Connection())) // Give Web3 another provider
 } catch (e) {
   console.error('Frame Error:', e)
