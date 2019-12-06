@@ -13,14 +13,21 @@ class Connection extends EventEmitter {
     setTimeout(() => this.emit('connect'), 0)
   }
   send (payload) {
-    window.postMessage({ type: 'eth:send', payload }, window.location.origin)
+    if (payload && payload.method && payload.method === 'eth_requestAccounts') {
+      this.emit('payload', { id: payload.id, jsonrpc: payload.jsonrpc, error: 'No eth_requestAccounts' })
+    } else {
+      window.postMessage({ type: 'eth:send', payload }, window.location.origin)
+    }
   }
 }
 
+class FrameProvider extends EthereumProvider {}
+
 try {
-  window.ethereum = new EthereumProvider(new Connection())
+  window.ethereum = new FrameProvider(new Connection())
+  window.ethereum.isFrame = true
   window.ethereum.setMaxListeners(128)
-  window.web3 = new Web3(new EthereumProvider(new Connection())) // Web3 will clobber send so we need another provider
+  window.web3 = new Web3(new FrameProvider(new Connection())) // Give Web3 another provider
 } catch (e) {
   console.error('Frame Error:', e)
 }
