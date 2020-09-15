@@ -14,11 +14,7 @@ class Connection extends EventEmitter {
   }
 
   send (payload) {
-    if (payload && payload.method && payload.method === 'eth_requestAccounts') {
-      this.emit('payload', { id: payload.id, jsonrpc: payload.jsonrpc, error: 'No eth_requestAccounts' })
-    } else {
-      window.postMessage({ type: 'eth:send', payload }, window.location.origin)
-    }
+    window.postMessage({ type: 'eth:send', payload }, window.location.origin)
   }
 }
 
