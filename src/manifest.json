@@ -1,6 +1,6 @@
 {
   "name": "Frame",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "manifest_version": 2,
   "description": "Frame",
   "homepage_url": "https://github.com/floating/frame",
@@ -18,7 +18,8 @@
   "content_scripts" : [{
     "matches": ["file://*/*", "http://*/*", "https://*/*"],
     "js": ["inject.js"],
-    "run_at": "document_start"
+    "run_at": "document_start",
+    "all_frames": true
   }],
   "permissions": [
     "activeTab",

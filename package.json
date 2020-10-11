@@ -1,6 +1,6 @@
 {
   "name": "frame-extension",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "repository": {
     "type": "git",
     "url": "git://github.com/floating/frame-extension.git"
@@ -22,8 +22,8 @@
     "webpack-cli": "3.3.12"
   },
   "dependencies": {
-    "eth-provider": "0.4.0",
-    "ethereum-provider": "0.1.1",
+    "eth-provider": "0.4.1",
+    "ethereum-provider": "0.1.2",
     "web3": "1.2.11"
   }
 }
