@@ -35,6 +35,16 @@ chrome.runtime.onMessage.addListener((payload, sender, sendResponse) => {
   provider.connection.send(load)
 })
 
+chrome.browserAction.onClicked.addListener(tab => { 
+  if (provider.connected) {
+    const load = { jsonrpc: '2.0', id: 1, method: 'frame_summon', params: [] }
+    provider.connection.send(load)
+  } else {
+    alert('Frame is not currently running on your machine, please open Frame and try again 🎉')
+    chrome.windows.create({ url: 'https://frame.sh', type: 'normal', focused: true })
+  }
+})
+
 const unsubscribeTab = tabId => {
   Object.keys(pending).forEach(id => { if (pending[id].tabId === tabId) delete pending[id] })
   Object.keys(subs).forEach(sub => {
