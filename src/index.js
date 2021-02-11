@@ -1,6 +1,7 @@
 /* globals chrome */
 
-const provider = require('eth-provider')('ws://127.0.0.1:1248?identity=frame-extension')
+const ethProvider = require('eth-provider')
+let provider = ethProvider('ws://127.0.0.1:1248?identity=frame-extension')
 
 const subs = {}
 const pending = {}
@@ -9,6 +10,18 @@ const getOrigin = url => {
   const path = url.split('/')
   return path[0] + '//' + path[2]
 }
+
+const pop = show => {
+  if (show) {
+    chrome.browserAction.setPopup({ popup: 'pop.html' })
+  } else {
+    chrome.browserAction.setPopup({ popup: '' })
+  }
+}
+
+pop(true)
+provider.on('connect', () => pop(false))
+provider.on('disconnect', () => pop(true))
 
 provider.connection.on('payload', payload => {
   if (typeof payload.id !== 'undefined') {
@@ -40,8 +53,8 @@ chrome.browserAction.onClicked.addListener(tab => {
     const load = { jsonrpc: '2.0', id: 1, method: 'frame_summon', params: [] }
     provider.connection.send(load)
   } else {
-    alert('Frame is not currently running on your machine, please open Frame and try again 🎉')
-    chrome.windows.create({ url: 'https://frame.sh', type: 'normal', focused: true })
+    if (provider && provider.close) provider.close()
+    provider = ethProvider('ws://127.0.0.1:1248?identity=frame-extension')
   }
 })
 

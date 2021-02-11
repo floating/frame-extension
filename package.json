@@ -9,7 +9,7 @@
   "main": "src",
   "scripts": {
     "test": "standard",
-    "build": "rimraf ./dist && webpack --config webpack.config.js && node ./src/inline.js"
+    "build": "rimraf ./dist && webpack --config webpack.config.js && node ./src/inline.js && cp ./src/pop.html ./dist/pop.html && cp ./src/icon.png ./dist/icon.png"
   },
   "author": "Jordan Muir",
   "license": "GPL-3.0",
@@ -17,12 +17,13 @@
     "ncp": "2.0.0",
     "rimraf": "3.0.2",
     "standard": "16.0.3",
-    "terser-webpack-plugin": "5.0.3",
-    "webpack": "5.10.0",
-    "webpack-cli": "4.2.0"
+    "terser-webpack-plugin": "4.1.0",
+    "webpack": "4.44.1",
+    "webpack-cli": "3.3.12"
   },
   "dependencies": {
-    "eth-provider": "0.5.3",
-    "ethereum-provider": "0.2.2"
+    "eth-provider": "0.6.1",
+    "ethereum-provider": "0.2.2",
+    "web3": "1.2.11"
   }
 }
