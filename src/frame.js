@@ -1,5 +1,4 @@
 const EventEmitter = require('events')
-const Web3 = require('web3')
 const EthereumProvider = require('ethereum-provider')
 
 class Connection extends EventEmitter {
@@ -18,14 +17,36 @@ class Connection extends EventEmitter {
   }
 }
 
-class FrameProvider extends EthereumProvider {}
+let mmAppear = window.localStorage.getItem('__mmAppear')
 
 try {
-  window.ethereum = new FrameProvider(new Connection())
-  window.ethereum.isFrame = true
-  window.ethereum.setMaxListeners(128)
-  window.Web3 = Web3
-  window.web3 = new Web3(new FrameProvider(new Connection())) // Give Web3 another provider
+  mmAppear = JSON.parse(mmAppear)
 } catch (e) {
-  console.error('Frame Error:', e)
+  mmAppear = false
 }
+
+if (mmAppear) {
+
+  class MetaMaskProvider extends EthereumProvider {}
+
+  try {
+    window.ethereum = new MetaMaskProvider(new Connection())
+    window.ethereum.isMetaMask = true
+    window.ethereum._metamask = true
+    window.ethereum.setMaxListeners(0)
+  } catch (e) {
+    console.error('Frame Error:', e)
+  }
+} else {
+  class FrameProvider extends EthereumProvider {}
+
+  try {
+    window.ethereum = new FrameProvider(new Connection())
+    window.ethereum.isFrame = true
+    window.ethereum.setMaxListeners(0)
+  } catch (e) {
+    console.error('Frame Error:', e)
+  }
+
+}
+

@@ -15,7 +15,7 @@ const pop = show => {
   if (show) {
     chrome.browserAction.setPopup({ popup: 'pop.html' })
   } else {
-    chrome.browserAction.setPopup({ popup: '' })
+    chrome.browserAction.setPopup({ popup: 'settings.html' })
   }
 }
 
