@@ -17,13 +17,12 @@
     "ncp": "2.0.0",
     "rimraf": "3.0.2",
     "standard": "16.0.3",
-    "terser-webpack-plugin": "4.1.0",
-    "webpack": "4.44.1",
-    "webpack-cli": "3.3.12"
+    "terser-webpack-plugin": "5.1.4",
+    "webpack": "5.45.1",
+    "webpack-cli": "4.7.2"
   },
   "dependencies": {
-    "eth-provider": "0.6.1",
-    "ethereum-provider": "0.2.2",
-    "web3": "1.2.11"
+    "eth-provider": "0.7.0",
+    "ethereum-provider": "0.2.2"
   }
 }

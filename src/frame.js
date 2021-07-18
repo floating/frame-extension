@@ -26,7 +26,6 @@ try {
 }
 
 if (mmAppear) {
-
   class MetaMaskProvider extends EthereumProvider {}
 
   try {
@@ -47,6 +46,4 @@ if (mmAppear) {
   } catch (e) {
     console.error('Frame Error:', e)
   }
-
 }
-

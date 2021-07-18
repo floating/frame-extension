@@ -48,7 +48,7 @@ chrome.runtime.onMessage.addListener((payload, sender, sendResponse) => {
   provider.connection.send(load)
 })
 
-chrome.browserAction.onClicked.addListener(tab => { 
+chrome.browserAction.onClicked.addListener(tab => {
   if (provider.connected) {
     const load = { jsonrpc: '2.0', id: 1, method: 'frame_summon', params: [] }
     provider.connection.send(load)

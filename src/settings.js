@@ -1,6 +1,8 @@
+/* globals chrome */
+
 function mmAppearToggle () {
-  chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-    chrome.tabs.executeScript(tabs[0].id, { code: `localStorage['__mmAppear']` }, (results) => { 
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.executeScript(tabs[0].id, { code: 'localStorage[\'__mmAppear\']' }, (results) => {
       let mmAppear = results[0]
       try {
         mmAppear = JSON.parse(mmAppear)
@@ -18,10 +20,10 @@ const getOrigin = url => {
   return path[0] + '//' + path[2]
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('mmAppearToggle').addEventListener('click', mmAppearToggle)
-  chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-    chrome.tabs.executeScript(tabs[0].id, { code: `localStorage['__mmAppear']` }, (results) => { 
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.executeScript(tabs[0].id, { code: 'localStorage[\'__mmAppear\']' }, (results) => {
       const origin = getOrigin(tabs[0].url)
       let mmAppear = results[0]
       try {
@@ -34,4 +36,3 @@ document.addEventListener("DOMContentLoaded", function() {
     })
   })
 })
-
