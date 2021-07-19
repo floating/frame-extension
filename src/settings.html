@@ -5,23 +5,44 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500&display=swap" rel="stylesheet">
     <style>
+      html {
+        --ghostX09: rgba(20, 20, 19, 0.9);
+        --ghostX04: rgba(20, 20, 19, 0.4);
+        --ghostX: rgba(20, 20, 19, 1);
+        --ghostY: rgba(24, 24, 23, 1);
+        --ghostZ05: rgba(28, 28, 27, 0.5);
+        --ghostZ: rgba(28, 28, 27, 1);
+        --ghostA: rgba(34, 34, 34, 1);
+        --ghostB: rgba(40, 40, 41, 1);
+        --ghostC0: rgba(46, 46, 48, 0);
+        --ghostC: rgba(46, 46, 48, 1);
+        --ghostD: rgba(52, 52, 55, 1);
+        --ghostE04: rgba(58, 58, 62, 0.4);
+        --ghostE: rgba(58, 58, 62, 1);
+        --ghostF: rgba(64, 64, 69, 1);
+        --ghostG: rgba(70, 70, 76, 1);
+        --mm: rgba(230, 138, 60, 1);
+        --good: rgb(0, 210, 190);
+      }
+
       body {
-        width: 360px;
-        height: 320px;
-        background: rgb(37, 40, 46);
+        width: 250px;
+        height: 75px;
+        background: var(--ghostZ);
         color: white;
         font-family: 'Raleway', sans-serif;
         font-weight: 300;
         font-size: 24px;
       }
-      .within {
+
+      .settings {
         position: absolute;
-        top: 20px;
+        top: 0px;
         right: 0px;
         bottom: 0px;
         left: 0px;
-        padding: 13px;
         text-align: center;
+        padding: 10px;
       }
       .sub {
         margin: 20px 20px 33px 20px;
@@ -37,20 +58,63 @@
         height: 120px;
       }
       #mmAppearDescription {
-        font-size: 14px;
+        height: 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 25px;
+        letter-spacing: 1px;
       }
       #mmAppearButton {
-        font-size: 14px;
+        font-size: 12px;
+      }
+      button {
+        width: 100%;
+        height: 30px;
+        background: var(--ghostA);
+        border-radius: 8px;
+        color: var(--outerspace);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 400;
+        font-size: 11px;
+        cursor: pointer;
+        box-sizing: border-box;
+        text-transform: uppercase;
+        box-shadow: 0px 2px 2px var(--ghostX);
+        outline: 0;
+        border: 0;
+        margin-top: 10px;
+        letter-spacing: 1px;
+      }
+      .mm {
+        color: var(--mm);
+      }
+      .frame {
+        color: var(--good);
+      }
+      .settings img {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        height: 30px;
+        width: 30px;
       }
     </style>
     <script src='settings.js'></script>
   </head>
   <body>
-    <div class='within'>
+    <div class='settings'>
       <img src='icon.png' />
-      <div class='sub'>Frame Settings</div>
-      <div id='mmAppearDescription'></div>
+      <div id='mmAppearDescription'>
+        <span>Injecting as <span id='injectingAs'>Frame</span> </span>
+      </div>
       <button id='mmAppearToggle'></button>
+      <!--<button id='summonFrame' class='settingsButton'>Summon Frame</button>-->
     </div>
   </body>
 </html>

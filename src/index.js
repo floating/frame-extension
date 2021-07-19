@@ -1,7 +1,7 @@
 /* globals chrome */
 
 const ethProvider = require('eth-provider')
-let provider = ethProvider('ws://127.0.0.1:1248?identity=frame-extension')
+const provider = ethProvider('ws://127.0.0.1:1248?identity=frame-extension')
 
 const subs = {}
 const pending = {}
@@ -42,21 +42,22 @@ provider.connection.on('payload', payload => {
 })
 
 chrome.runtime.onMessage.addListener((payload, sender, sendResponse) => {
+  if (payload.method === 'frame_summon') return provider.connection.send(payload)
   const id = provider.nextId++
   pending[id] = { tabId: sender.tab.id, payloadId: payload.id, method: payload.method }
   const load = Object.assign({}, payload, { id, __frameOrigin: getOrigin(sender.url) })
   provider.connection.send(load)
 })
 
-chrome.browserAction.onClicked.addListener(tab => {
-  if (provider.connected) {
-    const load = { jsonrpc: '2.0', id: 1, method: 'frame_summon', params: [] }
-    provider.connection.send(load)
-  } else {
-    if (provider && provider.close) provider.close()
-    provider = ethProvider('ws://127.0.0.1:1248?identity=frame-extension')
-  }
-})
+// chrome.browserAction.onClicked.addListener(tab => {
+//   if (provider.connected) {
+//     const load = { jsonrpc: '2.0', id: 1, method: 'frame_summon', params: [] }
+//     provider.connection.send(load)
+//   } else {
+//     if (provider && provider.close) provider.close()
+//     provider = ethProvider('ws://127.0.0.1:1248?identity=frame-extension')
+//   }
+// })
 
 const unsubscribeTab = tabId => {
   Object.keys(pending).forEach(id => { if (pending[id].tabId === tabId) delete pending[id] })
