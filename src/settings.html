@@ -27,7 +27,7 @@
 
       body {
         width: 250px;
-        height: 75px;
+        height: 100px;
         background: var(--ghostZ);
         color: white;
         font-family: 'Raleway', sans-serif;
@@ -42,11 +42,11 @@
         bottom: 0px;
         left: 0px;
         text-align: center;
-        padding: 10px;
+        padding: 10px 12px 0px 12px;
       }
-      .sub {
+      /* .sub {
         margin: 20px 20px 33px 20px;
-      }
+      } */
       a, a:hover, a:visited {
         color: white;
         font-size: 16px;
@@ -58,15 +58,24 @@
         height: 120px;
       }
       #mmAppearDescription {
-        height: 30px;
+        height: 28px;
         font-weight: 600;
         text-transform: uppercase;
         font-size: 13px;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding-left: 25px;
+        padding-left: 20px;
         letter-spacing: 1px;
+      }
+      #mmAppearSub {
+        height: 34px;
+        font-weight: 600;
+        font-size: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
       }
       #mmAppearButton {
         font-size: 12px;
@@ -99,22 +108,20 @@
       }
       .settings img {
         position: absolute;
-        top: 10px;
-        left: 10px;
-        height: 30px;
-        width: 30px;
+        top: 16px;
+        left: 16px;
+        height: 16px;
+        width: 16px;
       }
     </style>
     <script src='settings.js'></script>
   </head>
   <body>
     <div class='settings'>
-      <img src='icon.png' />
-      <div id='mmAppearDescription'>
-        <span>Injecting as <span id='injectingAs'>Frame</span> </span>
-      </div>
+      <img src='FrameLogo.png' />
+      <div id='mmAppearDescription'></div>
       <button id='mmAppearToggle'></button>
-      <!--<button id='summonFrame' class='settingsButton'>Summon Frame</button>-->
+      <div id='mmAppearSub'></div>
     </div>
   </body>
 </html>

@@ -24,10 +24,10 @@ function mmAppearToggle () {
 //   window.close()
 // }
 
-// const getOrigin = url => {
-//   const path = url.split('/')
-//   return path[0] + '//' + path[2]
-// }
+const getOrigin = url => {
+  const path = url.split('/')
+  return path[0] + '//' + path[2]
+}
 
 // document.getElementById('summonFrame').addEventListener('click', summonFrame)
 
@@ -45,18 +45,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
       const toggle = document.getElementById('mmAppearToggle')
-      const injecting = document.getElementById('injectingAs')
+      const injecting = document.getElementById('mmAppearDescription')
+      const sub = document.getElementById('mmAppearSub')
       if (mmAppear) {
-        toggle.className = 'frame'
-        toggle.innerHTML = 'Appear As Frame Instead'
-        injecting.innerHTML = 'MetaMask'
-        injecting.className = 'mm'
+        toggle.innerHTML = `<span>Appear As <span class='frame'> Frame </span> Instead </span>`
+        injecting.innerHTML = `<span>Injecting as <span class='mm'>Metamask</span> </span>`
       } else {
-        toggle.className = 'mm'
-        toggle.innerHTML = 'Appear As MetaMask Instead'
-        injecting.innerHTML = 'Frame'
-        injecting.className = 'frame'
+        toggle.innerHTML = `<span>Appear As <span class='mm'>MetaMask</span> Instead </span>`
+        injecting.innerHTML = `<span>Injecting as <span class='frame'>Frame</span> </span>`
       }
+      sub.innerHTML = `${getOrigin(tabs[0].url)}`
     })
   })
 })

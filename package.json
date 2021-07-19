@@ -9,7 +9,7 @@
   "main": "src",
   "scripts": {
     "test": "standard",
-    "build": "rimraf ./dist && webpack --config webpack.config.js && node ./src/inline.js && cp ./src/pop.html ./dist/pop.html && cp ./src/icon.png ./dist/icon.png"
+    "build": "rimraf ./dist && webpack --config webpack.config.js && node ./src/inline.js && cp ./src/pop.html ./dist/pop.html"
   },
   "author": "Jordan Muir",
   "license": "GPL-3.0",
