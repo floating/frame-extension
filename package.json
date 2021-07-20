@@ -22,8 +22,8 @@
     "webpack-cli": "4.7.2"
   },
   "dependencies": {
-    "eth-provider": "0.7.0",
-    "ethereum-provider": "0.2.2",
+    "eth-provider": "0.8.0",
+    "ethereum-provider": "0.3.0",
     "react": "^17.0.2"
   }
 }
