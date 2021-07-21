@@ -48,11 +48,11 @@ document.addEventListener('DOMContentLoaded', function () {
       const injecting = document.getElementById('mmAppearDescription')
       const sub = document.getElementById('mmAppearSub')
       if (mmAppear) {
-        toggle.innerHTML = `<span>Appear As <span class='frame'> Frame </span> Instead </span>`
-        injecting.innerHTML = `<span>Injecting as <span class='mm'>Metamask</span> </span>`
+        toggle.innerHTML = '<span>Appear As <span class=\'frame\'> Frame </span> Instead </span>'
+        injecting.innerHTML = '<span>Injecting as <span class=\'mm\'>Metamask</span> </span>'
       } else {
-        toggle.innerHTML = `<span>Appear As <span class='mm'>MetaMask</span> Instead </span>`
-        injecting.innerHTML = `<span>Injecting as <span class='frame'>Frame</span> </span>`
+        toggle.innerHTML = '<span>Appear As <span class=\'mm\'>MetaMask</span> Instead </span>'
+        injecting.innerHTML = '<span>Injecting as <span class=\'frame\'>Frame</span> </span>'
       }
       sub.innerHTML = `${getOrigin(tabs[0].url)}`
     })
