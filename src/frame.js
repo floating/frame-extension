@@ -26,18 +26,20 @@ try {
 }
 
 if (mmAppear) {
-  class MetaMaskProvider extends EthereumProvider {}
+  class MetaMaskProvider extends EthereumProvider { }
 
   try {
     window.ethereum = new MetaMaskProvider(new Connection())
     window.ethereum.isMetaMask = true
-    window.ethereum._metamask = true
+    window.ethereum._metamask = {
+      isUnlocked: () => true
+    }
     window.ethereum.setMaxListeners(0)
   } catch (e) {
     console.error('Frame Error:', e)
   }
 } else {
-  class FrameProvider extends EthereumProvider {}
+  class FrameProvider extends EthereumProvider { }
 
   try {
     window.ethereum = new FrameProvider(new Connection())
