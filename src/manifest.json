@@ -1,5 +1,5 @@
 {
-  "name": "Frame",
+  "name": "Frame ENS",
   "version": "0.5.2",
   "manifest_version": 2,
   "description": "Frame",
@@ -22,6 +22,8 @@
     "all_frames": true
   }],
   "permissions": [
+    "webRequest",
+    "webRequestBlocking",
     "activeTab",
     "https://*/*",
     "http://*/*",
